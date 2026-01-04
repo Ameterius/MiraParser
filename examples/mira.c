@@ -14,12 +14,12 @@ int main(int argc, char *argv[]) {
         }
         // else
         printf("%s\n", lazy->string); // printing value
-        MiraParser_Value_Arg_Free(lazy); // freeing variable
-        MiraParser_Free(parser); // freeing parser
     }
     else{
         printf("Mira🩵\n"); // prints if no args
     }
+    MiraParser_Value_Arg_Free(lazy); // freeing variable
+    MiraParser_Free(parser); // freeing parser
 }
 
 /*
