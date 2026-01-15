@@ -11,6 +11,9 @@ Pros/Minuses:
 + written in pure C
 
 - human comments in code (or this a pros?)
+
+@@ +- @@
+! There is no direct support for short arguments (Implementation is possible via two parsers (which would require more careful handling))
 ```
 
 # Functions
