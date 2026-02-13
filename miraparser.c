@@ -71,6 +71,12 @@ int MiraParser_Arg(const char * arg, MiraParser * parser){
             free(): invalid pointer
             Aborted                    (core dumped) ./a.out -love Sydney
             */
+            // я просто долбаёб, вроде как данный костыль чинит потенциальную (но при этом и потенциально малую) утечку память
+            // - Ametero'z self critic
+            for(int pointerrecovery = localclearprefixshit; pointerrecovery != 0; pointerrecovery--){
+                woprefix--;
+            }
+            free(woprefix);
             return 0; 
         }
     }
