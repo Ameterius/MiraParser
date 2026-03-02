@@ -49,7 +49,9 @@ int MiraParser_Arg(const char * arg, MiraParser * parser){
     if(!parser){
         return 1;
     }
+    
     for(int idx = 1; idx != parser->arguments_count; idx++){
+        int localclearprefixshit = 0;
         if(strlen(parser->arguments[idx]) < strlen(parser->prefix)){
             // non-valid arg OR value
             continue;
@@ -63,6 +65,7 @@ int MiraParser_Arg(const char * arg, MiraParser * parser){
         }
         strcpy(woprefix, parser->arguments[idx]); // skipping prefix
         for(int clearprefix = 0; clearprefix != strlen(parser->prefix); clearprefix++){
+            localclearprefixshit++; // oops....
             woprefix++;
         }
         if(strcmp(woprefix, arg) == 0){
@@ -76,13 +79,13 @@ int MiraParser_Arg(const char * arg, MiraParser * parser){
             for(int pointerrecovery = localclearprefixshit; pointerrecovery != 0; pointerrecovery--){
                 woprefix--;
             }
-            free(woprefix);
+
             return 0; 
         }
+        free(woprefix);
     }
     return 1;
 }
-
 int MiraParser_Value_Arg(const char* arg,MiraParser_Return * var,MiraParser_argument_type type, MiraParser * parser){
     if(!parser){
         return 1;
@@ -103,10 +106,15 @@ int MiraParser_Value_Arg(const char* arg,MiraParser_Return * var,MiraParser_argu
 
         - Tired, but not burned out Ametero
     */
+    
     char * tint = malloc(strlen(arg) + strlen(parser->prefix) + 16); // 16 reserve bytes ( >_< don't judge me )
+    
     strcat(tint,parser->prefix);
+    
     strcat(tint, arg);
-    int idx = 1; // skipping 0 arg
+    
+    int idx = 0; // skipping 0 arg
+    
     while(idx != parser->arguments_count){
         if(strcmp(tint, parser->arguments[idx]) == 0){
             // arg found
@@ -136,7 +144,12 @@ int MiraParser_Value_Arg(const char* arg,MiraParser_Return * var,MiraParser_argu
             if(!parser->arguments[idx + 1]){
                 return 1;
             }
-            var->string = malloc(strlen(parser->arguments[idx + 1]) + 1);
+            
+            if(!parser->arguments[idx+1]){
+                return 1;
+            }
+            var->string = malloc(strlen(parser->arguments[idx+1])+ 1);
+            
             if(!var->string){
                 return 1;
             }
